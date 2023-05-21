@@ -55,7 +55,7 @@ impl HdmaRow {
         let i = self.color_index.to_le_bytes();
         let v = self.color_value.to_le_bytes();
 
-        [self.scanline, i[1], i[0], v[1], v[0]]
+        [self.scanline, i[0], i[1], v[0], v[1]]
     }
 }
 
