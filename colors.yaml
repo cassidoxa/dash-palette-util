@@ -1,0 +1,22 @@
+# DASH HUD Palette Utility
+#
+# Colors here are in RGB (255, 255, 255) notation.
+#
+# color_one: Area code letter color
+# color_two: Major count outline color 
+# color_three: Major count inner color
+# color_four: M/E icons solid color
+# color_five: Pressure Valve inner color
+# color_six: Head Shield inner color
+# color_seven: E-tank count outer
+# color_eight: Pressure valve outer
+#
+---
+color_one: 0xFFFFFF
+color_two: 0xFFFFFF
+color_three: 0xFFFFFF
+color_four: 0xFFFFFF
+color_five: 0xFFFFFF
+color_six: 0xFFFFFF
+color_seven: 0xFFFFFF
+color_eight: 0xFFFFFF

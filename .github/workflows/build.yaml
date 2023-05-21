@@ -1,0 +1,61 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - "v0.1.0-*"
+
+permissions:
+  contents: write
+
+jobs:
+  build_linux_x64:
+    name: Build Linux
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Make out dir
+      run: mkdir ${{github.workspace}}/out
+    - name: Build Client and Server
+      run: cargo build --release
+    - name: Archive
+      run: 7z a ${{github.workspace}}/out/echowhistle-linux.7z ${{github.workspace}}/target/release/dhpu ${{github.workspace}}/dash_working.bps
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ${{github.workspace}}/out/dhpu-linux.7z
+
+  build_macos_x64:
+    name: Build MacOS x64
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v3
+    - name: Make out dir
+      run: mkdir ${{github.workspace}}/out
+    - name: Build Client and Server
+      run: cargo build --release
+    - name: Archive
+      run: 7z a ${{github.workspace}}/out/echowhistle-macos-x64.7z ${{github.workspace}}/target/release/dhpu ${{github.workspace}}/dash_working.bps
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ${{github.workspace}}/out/dhpu-macos-x64.7z
+
+  build_windows:
+    name: Build Windows
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+    - name: Make out dir
+      run: mkdir ${{github.workspace}}\out
+    - name: Build Client and Server
+      run: cargo build --release
+    - name: Archive
+      run: 7z a ${{github.workspace}}\out\echowhistle-windows.zip ${{github.workspace}}\target\release\dhpu.exe ${{github.workspace}}/dash_working.bps
+    - name: Release
+      uses: softprops/action-gh-release@v0.1.13
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ${{github.workspace}}\out\dhpu-windows.zip
